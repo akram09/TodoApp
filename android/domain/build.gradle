@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.kotlin.coroutines_core
+    implementation deps.kotlin.coroutines_android
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockk
+    testImplementation deps.test.kotlin_junit
+    implementation deps.kotlin.rx2
+    compile 'com.jakewharton.threetenabp:threetenabp:1.1.1'
+    kapt     'javax.annotation:jsr250-api:1.0'
+    implementation        'javax.inject:javax.inject:1'
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
