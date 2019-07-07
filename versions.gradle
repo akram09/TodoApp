@@ -83,7 +83,7 @@ ext.build_versions = build_versions
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 
 ext.deps = deps
-
+ext.versions =versions
 
 def addRepos(RepositoryHandler handler) {
     handler.google()
