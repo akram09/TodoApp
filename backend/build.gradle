@@ -1,13 +1,3 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
@@ -22,24 +12,22 @@ sourceSets {
     test.resources.srcDirs = ['testresources']
 }
 
-repositories {
-    mavenLocal()
-    jcenter()
-    maven { url 'https://kotlin.bintray.com/ktor' }
-    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
-    maven { url 'https://kotlin.bintray.com/kotlin-js-wrappers' }
-}
-
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "io.ktor:ktor-server-netty:$ktor_version"
-    implementation "ch.qos.logback:logback-classic:$logback_version"
-    implementation "io.ktor:ktor-server-core:$ktor_version"
-    implementation "io.ktor:ktor-server-cio:$ktor_version"
-    implementation "io.ktor:ktor-html-builder:$ktor_version"
-    implementation "io.ktor:ktor-jackson:$ktor_version"
-    implementation "io.ktor:ktor-auth:$ktor_version"    
-    implementation "io.ktor:ktor-auth-jwt:$ktor_version"
-    implementation "io.ktor:ktor-gson:$ktor_version"
-    testImplementation "io.ktor:ktor-server-tests:$ktor_version"
+    implementation deps.kotlin.kotlin_jre
+    implementation deps.rxjava.core
+    implementation deps.rxjava.rxKotlin
+//    implementation deps.kotlin.kissme
+    implementation deps.coroutines.coroutines_core
+//    implementation deps.arrow.core
+    implementation deps.ktorDeps.nettyServer
+    implementation deps.ktorDeps.logback
+    implementation deps.ktorDeps.core
+    implementation deps.ktorDeps.cioServer 
+    implementation deps.ktorDeps.htmlBuilder 
+    implementation deps.ktorDeps.jackson 
+    implementation deps.ktorDeps.auth 
+    implementation deps.ktorDeps.auth_jwt 
+    implementation deps.ktorDeps.gson
+    testImplementation deps.ktorDeps.serverTest
+
 }

@@ -1,2 +1,2 @@
-rootProject.name = "todo "
-include 'backend', 'android'
+rootProject.name = "todo"
+include 'backend', 'android' 

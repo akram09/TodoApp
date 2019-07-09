@@ -1,20 +1,23 @@
-/**
- *Source largely taken from this OS repo: https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/versions.gradle
- * Thank you to everyone involved in this awesome OS project!
- *
- * In this file, we basically build a tree of deps in a very DRY way.
- **/
 
-//ext is a way to add extra data key/value pairs to a gradle domain object. Since it has no prefix,
-//it is short hand for project.ext in this case.
-//[:] is groovy syntax for creating a "Map" Object, which is a collection of key/value pairs
-
-//create a map of key/value pairs, called deps (deps)
 ext.deps = [:]
 
-//def means we're making a local variable. We'll use this map to build our deps key/value
-//pairs below
+
 def versions = [:]
+        // Kotlin versions
+versions.kotlin = "1.3.40"
+versions.serialization="0.10.0"
+versions.arrow="0.9.0"
+
+
+
+    // Ktor versions
+versions.ktor_version = "1.2.2"
+versions.logback_version="1.2.1"
+
+
+
+
+ // Android versions
 versions.lifecycle = "2.0.0-rc01"
 versions.junit = "5.1.1"
 versions.room = "2.1.0-alpha03"
@@ -27,16 +30,65 @@ versions.design = "1.0.0-rc01"
 versions.appcompat = "1.0.0"
 versions.ktx_fragment = "1.0.0"
 versions.rec_view = "1.0.0"
-versions.firebase_auth = "16.1.0"
-versions.firebase_core = "16.0.6"
-versions.firebase_firestore = "17.1.4"
-versions.play_services_auth = "16.0.1"
 versions.constraint_layout = "2.0.0-alpha2"
-versions.coroutine_version = "1.0.0"
+versions.coroutine_version = "1.3.0-M2"
 versions.android_gradle_plugin = "3.2.1"
-versions.kotlin = "1.3.0-rc-190"
+versions.rxJava="2.2.4"
+versions.rxKotlin = "2.3.0"
+versions.rxAndroid="2.1.0"
 
 def deps = [:]
+
+    //   Kotlin dependencies
+def coroutines = [:]
+coroutines.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine_version"
+coroutines.rx2 = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$versions.coroutine_version"
+deps.coroutines  = coroutines
+
+def rxjava =[:]
+rxjava.core="io.reactivex.rxjava2:rxjava:$versions.rxJava"
+rxjava.rxKotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin"
+deps.rxjava = rxjava
+
+def kotlin = [:]
+kotlin.kotlin_jre = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+kotlin.stdlib= "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+kotlin.serialization ="org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$versions.serialization"
+kotlin.serialization_runtime = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$versions.serialization"
+kotlin.kissme= "com.netguru.kissme:kissme-common:0.2.3"
+deps.kotlin = kotlin
+
+def arrow = [:]
+arrow.core = "io.arrow-kt:arrow-core:$versions.arrow"
+deps.arrow= arrow
+
+
+def kotlinTest = [:]
+kotlinTest.junit = "org.junit.jupiter:junit-jupiter-api:$versions.junit"
+kotlinTest.kotlin_junit = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlinTest.mockk = "io.mockk:mockk:1.8.9.kotlin13"
+deps.kotlinTest = kotlinTest
+
+
+
+
+        // Ktor dependencies
+def ktorDeps = [:]
+ktorDeps.nettyServer=  "io.ktor:ktor-server-netty:$versions.ktor_version"
+ktorDeps.logback= "ch.qos.logback:logback-classic:$versions.logback_version"
+ktorDeps.core = "io.ktor:ktor-server-core:$versions.ktor_version"
+ktorDeps.cioServer =  "io.ktor:ktor-server-cio:$versions.ktor_version"
+ktorDeps.htmlBuilder = "io.ktor:ktor-html-builder:$versions.ktor_version"
+ktorDeps.jackson =  "io.ktor:ktor-jackson:$versions.ktor_version"
+ktorDeps.auth =  "io.ktor:ktor-auth:$versions.ktor_version"
+ktorDeps.auth_jwt =  "io.ktor:ktor-auth-jwt:$versions.ktor_version"
+ktorDeps.gson =  "io.ktor:ktor-gson:$versions.ktor_version"
+ktorDeps.serverTest=  "io.ktor:ktor-server-tests:$versions.ktor_version"
+deps.ktorDeps = ktorDeps
+
+
+
+    // Android dependecies !!
 def android = [:]
 
 android.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
@@ -46,12 +98,14 @@ android.design = "com.google.android.material:material:$versions.design"
 android.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 android.lifecycle_extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 android.ktx_fragment = "androidx.fragment:fragment-ktx:$versions.ktx_fragment"
+android.rxAndroid= "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
 deps.android = android
 
 def room = [:]
 room.runtime = "androidx.room:room-runtime:$versions.room"
 room.compiler = "androidx.room:room-compiler:$versions.room"
 deps.room = room
+
 def dagger=[:]
 dagger.core= "com.google.dagger:dagger-android:$versions.dagger"
 dagger.support= "com.google.dagger:dagger-android-support:$versions.dagger"
@@ -59,35 +113,41 @@ dagger.kaptCompiler= "com.google.dagger:dagger-compiler:$versions.dagger"
 dagger.kaptProcessor= "com.google.dagger:dagger-android-processor:$versions.dagger"
 deps.dagger=dagger
 
-def test = [:]
 
-test.junit = "org.junit.jupiter:junit-jupiter-api:$versions.junit"
-test.kotlin_junit = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
-test.mockk = "io.mockk:mockk:1.8.9.kotlin13"
-deps.test = test
 
-def kotlin = [:]
-kotlin.kotlin_jre = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
-kotlin.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-kotlin.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine_version"
-kotlin.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine_version"
-kotlin.rx2 = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$versions.coroutine_version"
-deps.kotlin = kotlin
-
+def coroutines_android = [:]
+coroutines_android.core = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine_version"
+deps.coroutines_android = coroutines_android
 
 def build_versions = [:]
 build_versions.min_sdk = 21
 build_versions.target_sdk = 28
 ext.build_versions = build_versions
 
-deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+
+
+
+        // Plugins !!!
+
+def plugins= [:]
+plugins.serialization= "org.jetbrains.kotlin:kotlin-serialization:$versions.kotlin"
+plugins.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+plugins.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.plugins = plugins
+
+
 
 ext.deps = deps
-ext.versions =versions
+
 
 def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
+    handler.mavenLocal()
+    handler.maven { url 'https://kotlin.bintray.com/ktor' }
+    handler.maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+    handler.maven { url "https://dl.bintray.com/arrow-kt/arrow-kt/" }
+    handler.maven { url 'https://kotlin.bintray.com/kotlin-js-wrappers' }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     handler.maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
 }
