@@ -1,17 +1,16 @@
 package akram.kero.todoapp.presentation
 
 import akram.kero.todoapp.data.AuthRepositoryImpl
-import akram.kero.todoapp.domain.CoroutinesDispatcherImpl
-import akram.kero.todoapp.domain.SignUpParam
-import akram.kero.todoapp.domain.SignUpUser
-import akram.kero.todoapp.domain.ValidateBasicAuth
+import akram.kero.todoapp.data.dataModule
+import akram.kero.todoapp.domain.*
+import akram.kero.todoapp.presentation.auth.AuthController
+import akram.kero.todoapp.presentation.auth.authModule
 import akram.kero.todoapp.utils.responde
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
 import io.ktor.auth.Authentication
-import io.ktor.auth.UserPasswordCredential
 import io.ktor.auth.authenticate
 import io.ktor.auth.basic
 import io.ktor.auth.jwt.jwt
@@ -25,20 +24,24 @@ import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
-import io.ktor.server.engine.ApplicationEngineEnvironment
-import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.EngineMain
-import io.ktor.server.netty.Netty
-import io.ktor.server.netty.NettyApplicationEngine
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Logger
+import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
 
 
 fun main(args:Array<String>){
     EngineMain.main(args)
+    startKoin {
+        printLogger()
+        modules(listOf(domainModule , dataModule , authModule))
+    }
 }
 
 fun Application.module(){
-     val controller = AuthController(ValidateBasicAuth(AuthRepositoryImpl(), CoroutinesDispatcherImpl()) , SignUpUser(AuthRepositoryImpl() , CoroutinesDispatcherImpl()))
+     val controller:AuthController by inject()
+
     install(CallLogging){
         level = Level.DEBUG
     }
@@ -58,9 +61,6 @@ fun Application.module(){
             }
         }
     }
-
-
-
 
 
     routing {

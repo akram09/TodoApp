@@ -1,6 +1,19 @@
 buildscript {
     apply from: 'versions.gradle'
-    addRepos(repositories)
+    repositories {
+    google()
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven { url 'https://kotlin.bintray.com/ktor' }
+    maven { url 'https://dl.bintray.com/netguru/maven/' }
+    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+    maven { url "https://dl.bintray.com/arrow-kt/arrow-kt/" }
+    maven { url 'https://kotlin.bintray.com/kotlin-js-wrappers' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        }
     dependencies {
         classpath deps.plugins.kotlin_gradle_plugin
         classpath deps.plugins.serialization
@@ -9,5 +22,19 @@ buildscript {
 }
 
 allprojects {
-  addRepos(repositories)
+    repositories {
+        google()
+        jcenter()
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://kotlin.bintray.com/ktor' }
+        maven { url 'https://dl.bintray.com/netguru/maven/' }
+        maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+        maven { url "https://dl.bintray.com/arrow-kt/arrow-kt/" }
+        maven { url 'https://kotlin.bintray.com/kotlin-js-wrappers' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    }
+
 }

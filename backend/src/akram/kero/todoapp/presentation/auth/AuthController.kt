@@ -1,4 +1,4 @@
-package akram.kero.todoapp.presentation
+package akram.kero.todoapp.presentation.auth
 
 import akram.kero.todoapp.domain.*
 import akram.kero.todoapp.presentation.views_model.ErrorReporting
