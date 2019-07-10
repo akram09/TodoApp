@@ -61,9 +61,10 @@ abstract class ObservableInteractor<Type , in Params>(private val schedulers:App
  * frome viewModel scope
  * */
 
-fun <P, R, T:Failure> CoroutineScope.launchInteractor(interactor: EitherInteractor<P, R, T>, param: P, OnResult:(Either<T, R>)->Unit): Job {
+suspend fun <P, R, T:Failure> launchInteractor(interactor: EitherInteractor<P, R, T>, param: P) = coroutineScope{
+
     val  job = async(interactor.dispatcher) { interactor(param) }
-    return launch(interactor.resultDispatcher) { OnResult(job.await()) }
+     job.await()
 }
 
 

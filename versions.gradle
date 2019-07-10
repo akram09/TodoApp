@@ -144,7 +144,10 @@ def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
     handler.mavenLocal()
+    handler.mavenCentral()
+    handler.maven { url "https://jitpack.io" }
     handler.maven { url 'https://kotlin.bintray.com/ktor' }
+    handler.maven {  url 'https://dl.bintray.com/netguru/maven/' }
     handler.maven { url "https://dl.bintray.com/kotlin/kotlinx" }
     handler.maven { url "https://dl.bintray.com/arrow-kt/arrow-kt/" }
     handler.maven { url 'https://kotlin.bintray.com/kotlin-js-wrappers' }

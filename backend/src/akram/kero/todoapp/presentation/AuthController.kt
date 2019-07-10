@@ -1,7 +1,11 @@
 package akram.kero.todoapp.presentation
 
-import akram.kero.todoapp.domain.UserPassword
-import akram.kero.todoapp.domain.ValidateBasicAuth
+import akram.kero.todoapp.domain.*
+import akram.kero.todoapp.presentation.views_model.ErrorReporting
+import akram.kero.todoapp.utils.Either
+import akram.kero.todoapp.utils.launchInteractor
+import akram.kero.todoapp.utils.map
+import akram.kero.todoapp.utils.mapLeft
 import com.auth0.jwt.interfaces.Payload
 import io.ktor.auth.Principal
 import io.ktor.auth.UserIdPrincipal
@@ -10,14 +14,18 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.suspendCoroutine
 
-class AuthController(private val basicAuthUseCase:ValidateBasicAuth) {
-//    suspend fun validateJwtUser(payload: Payload) = coroutineScope<Boolean> {
-//
-//    }
+class AuthController(private val basicAuthUseCase:ValidateBasicAuth , val signUpUseCase:SignUpUser) {
 
-    suspend fun validateBasicAuthUser(userPasswordCredential: UserPasswordCredential) = coroutineScope {
-        val isAuthorized = async { basicAuthUseCase(UserPassword(userPasswordCredential.name , userPasswordCredential.password)) }
-        if(isAuthorized.await()){
+    suspend fun signUpUser(signUpParam: SignUpParam):Either<ErrorReporting  , Id>{
+        val either =  launchInteractor(signUpUseCase , signUpParam)
+        return either.mapLeft{
+            ErrorReporting(arrayOf())
+        }
+    }
+
+    suspend fun validateBasicAuthUser(userPasswordCredential: UserPasswordCredential) : UserIdPrincipal? {
+        val isAuthorized =  launchInteractor(basicAuthUseCase, UserPassword(userPasswordCredential.name , userPasswordCredential.password))
+       return  if(isAuthorized){
             UserIdPrincipal(userPasswordCredential.name)
         }else{
             null

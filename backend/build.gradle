@@ -16,7 +16,6 @@ dependencies {
     implementation deps.kotlin.kotlin_jre
     implementation deps.rxjava.core
     implementation deps.rxjava.rxKotlin
-//    implementation deps.kotlin.kissme
     implementation deps.coroutines.coroutines_core
 //    implementation deps.arrow.core
     implementation deps.ktorDeps.nettyServer

@@ -2,7 +2,10 @@ package akram.kero.todoapp.presentation
 
 import akram.kero.todoapp.data.AuthRepositoryImpl
 import akram.kero.todoapp.domain.CoroutinesDispatcherImpl
+import akram.kero.todoapp.domain.SignUpParam
+import akram.kero.todoapp.domain.SignUpUser
 import akram.kero.todoapp.domain.ValidateBasicAuth
+import akram.kero.todoapp.utils.responde
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -13,8 +16,11 @@ import io.ktor.auth.authenticate
 import io.ktor.auth.basic
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.CallLogging
+import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
+import io.ktor.gson.gson
 import io.ktor.request.receive
+import io.ktor.request.receiveText
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -32,19 +38,18 @@ fun main(args:Array<String>){
 }
 
 fun Application.module(){
-     val controller = AuthController(ValidateBasicAuth(AuthRepositoryImpl(), CoroutinesDispatcherImpl()))
+     val controller = AuthController(ValidateBasicAuth(AuthRepositoryImpl(), CoroutinesDispatcherImpl()) , SignUpUser(AuthRepositoryImpl() , CoroutinesDispatcherImpl()))
     install(CallLogging){
         level = Level.DEBUG
     }
+    install(ContentNegotiation){
+        gson { }
+    }
     install(DefaultHeaders)
-
     install(Authentication){
         jwt("Jwt-Auth") {
             realm ="todo_ktor.io"
             verifier(JwtConfig.jwtVerifier)
-//            validate{
-//
-//            }
         }
         basic("Basic-Auth"){
             realm = "todo.ktor.io.basic"
@@ -53,15 +58,28 @@ fun Application.module(){
             }
         }
     }
+
+
+
+
+
     routing {
 
         authenticate("Basic-Auth") {
 
             get("/login") {
-                call.respond("Hello World !!!!!")
+                log.debug("entered login with ${call.receiveText()}")
+
+            }
+            post("/signUp"){
+                log.debug("entered the sign Up routes with ${call.receiveText()}")
+                val user = call.receive(SignUpParam::class)
+                controller.signUpUser(user).responde(call::respond)
             }
         }
 
+
     }
+
 
 }
