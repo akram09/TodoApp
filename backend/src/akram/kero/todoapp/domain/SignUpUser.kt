@@ -5,7 +5,7 @@ import akram.kero.todoapp.utils.Either
 import akram.kero.todoapp.utils.EitherInteractor
 import akram.kero.todoapp.utils.None
 
-data class SignUpParam(val email:String  , val password:String)
+data class SignUpParam(val email:String , val password:String)
 data class Id(val value:String)
 class SignUpUser (val repository: AuthRepository , dispatchers: CouroutineDispatchers)
                             :EitherInteractor<SignUpParam, Id,Failure.SignUpFailure >(dispatchers) {

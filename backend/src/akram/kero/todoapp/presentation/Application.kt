@@ -18,25 +18,29 @@ import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.gson.gson
-import io.ktor.request.receive
-import io.ktor.request.receiveText
+import io.ktor.jackson.jackson
+import io.ktor.request.*
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
+import io.ktor.server.engine.commandLineEnvironment
+import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.EngineMain
+import io.ktor.server.netty.Netty
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Logger
 import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
+import java.text.DateFormat
 
 
 fun main(args:Array<String>){
-    EngineMain.main(args)
     startKoin {
         printLogger()
         modules(listOf(domainModule , dataModule , authModule))
     }
+    embeddedServer(Netty , commandLineEnvironment(args) ).start()
 }
 
 fun Application.module(){
@@ -46,33 +50,34 @@ fun Application.module(){
         level = Level.DEBUG
     }
     install(ContentNegotiation){
-        gson { }
+        gson {
+            setDateFormat(DateFormat.LONG)
+            setPrettyPrinting()
+        }
     }
     install(DefaultHeaders)
     install(Authentication){
-        jwt("Jwt-Auth") {
-            realm ="todo_ktor.io"
-            verifier(JwtConfig.jwtVerifier)
-        }
+
         basic("Basic-Auth"){
             realm = "todo.ktor.io.basic"
             validate {
                 controller.validateBasicAuthUser(it)
             }
         }
+        jwt("Jwt-Auth") {
+            realm ="todo_ktor.io"
+            verifier(JwtConfig.jwtVerifier)
+        }
     }
-
-
     routing {
 
         authenticate("Basic-Auth") {
-
             get("/login") {
                 log.debug("entered login with ${call.receiveText()}")
 
             }
             post("/signUp"){
-                log.debug("entered the sign Up routes with ${call.receiveText()}")
+//                log.debug("entered the sign Up routes with ${call.receiveText()}")
                 val user = call.receive(SignUpParam::class)
                 controller.signUpUser(user).responde(call::respond)
             }
@@ -82,4 +87,7 @@ fun Application.module(){
     }
 
 
+
 }
+
+
