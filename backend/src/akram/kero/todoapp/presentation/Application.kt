@@ -13,6 +13,7 @@ import io.ktor.application.log
 import io.ktor.auth.Authentication
 import io.ktor.auth.authenticate
 import io.ktor.auth.basic
+import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
@@ -67,19 +68,31 @@ fun Application.module(){
         jwt("Jwt-Auth") {
             realm ="todo_ktor.io"
             verifier(JwtConfig.jwtVerifier)
+            validate {
+                if(it.payload.getClaim("UserId").asString()== "userId"){
+                    JWTPrincipal(it.payload)
+                }else{
+                        null
+                }
+            }
         }
     }
     routing {
 
         authenticate("Basic-Auth") {
-            get("/login") {
+            get("/auth/login") {
                 log.debug("entered login with ${call.receiveText()}")
 
             }
             post("/signUp"){
-//                log.debug("entered the sign Up routes with ${call.receiveText()}")
                 val user = call.receive(SignUpParam::class)
                 controller.signUpUser(user).responde(call::respond)
+            }
+        }
+        authenticate("Jwt-Auth") {
+            get("/api/hello"){
+                log.debug(call.receiveText())
+                call.respond("hello world")
             }
         }
 

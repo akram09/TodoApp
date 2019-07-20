@@ -12,10 +12,11 @@ object JwtConfig{
             .withIssuer(issuer)
             .build()
 
-    fun makeToken(userId:String):String {
+    fun makeToken(userId:String  ):String {
             return JWT.create()
                 .withClaim("UserId", userId)
                 .withSubject("Authentification")
+                .withIssuer(issuer)
                 .sign(algorithme)
     }
 

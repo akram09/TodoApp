@@ -16,7 +16,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class AuthController(private val basicAuthUseCase:ValidateBasicAuth , val signUpUseCase:SignUpUser) {
 
-    suspend fun signUpUser(signUpParam: SignUpParam):Either<ErrorReporting  , Id>{
+    suspend fun signUpUser(signUpParam: SignUpParam):Either<ErrorReporting  , Token>{
         val either =  launchInteractor(signUpUseCase , signUpParam)
         return either.mapLeft{
             ErrorReporting(arrayOf())

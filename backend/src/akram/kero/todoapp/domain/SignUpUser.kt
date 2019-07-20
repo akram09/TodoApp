@@ -6,12 +6,12 @@ import akram.kero.todoapp.utils.EitherInteractor
 import akram.kero.todoapp.utils.None
 
 data class SignUpParam(val email:String , val password:String)
-data class Id(val value:String)
+data class Token(val key :String)
 class SignUpUser (val repository: AuthRepository , dispatchers: CouroutineDispatchers)
-                            :EitherInteractor<SignUpParam, Id,Failure.SignUpFailure >(dispatchers) {
+                            :EitherInteractor<SignUpParam, Token,Failure.SignUpFailure >(dispatchers) {
 
 
-    override suspend fun invoke(executeParams: SignUpParam): Either<Failure.SignUpFailure, Id> {
+    override suspend fun invoke(executeParams: SignUpParam): Either<Failure.SignUpFailure, Token> {
         return repository.signUpUser(executeParams)
     }
 }

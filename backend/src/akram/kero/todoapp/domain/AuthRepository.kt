@@ -5,5 +5,5 @@ import akram.kero.todoapp.utils.None
 
 interface AuthRepository {
     suspend fun validateUserBasicAuth(user:UserPassword):Boolean
-    suspend fun signUpUser(user:SignUpParam):Either<Failure.SignUpFailure , Id>
+    suspend fun signUpUser(user:SignUpParam):Either<Failure.SignUpFailure , Token>
 }
