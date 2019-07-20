@@ -1,9 +1,8 @@
 package akram.kero.todoapp.utils
 
-import akram.kero.todoapp.domain.Failure
+import akram.kero.todoapp.domain.failure.Failure
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
-import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.*
 
 
@@ -39,6 +38,10 @@ abstract class Interactor<in P , out R >(dispatcher: CouroutineDispatchers){
     abstract suspend operator fun invoke(executeParams: P):R
 }
 
+abstract class SyncInteractor<in P , out  R>{
+    abstract  operator fun invoke(executeParams: P):R
+}
+
 
 /**
  * interctore runs in background thread and return a stream
@@ -61,7 +64,7 @@ abstract class ObservableInteractor<Type , in Params>(private val schedulers:App
  * frome viewModel scope
  * */
 
-suspend fun <P, R, T:Failure> launchInteractor(interactor: EitherInteractor<P, R, T>, param: P) = coroutineScope{
+suspend fun <P, R, T: Failure> launchInteractor(interactor: EitherInteractor<P, R, T>, param: P) = coroutineScope{
 
     val  job = async(interactor.dispatcher) { interactor(param) }
      job.await()

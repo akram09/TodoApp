@@ -16,4 +16,7 @@ suspend fun <L:Any , R:Any>Either<L , R>.responde( respond: suspend (status:Http
         is Either.Right -> respond( HttpStatusCode.OK, b)
     }
 }
+fun <L , R  , NL , NR> Pair<L , R>.map(fnL: (L) -> NL , fnR:(R)->NR):Pair<NL , NR>{
+  return   Pair(fnL(first) , fnR(second))
+}
 
