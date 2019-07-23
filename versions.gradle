@@ -15,6 +15,8 @@ versions.koin = "2.0.1"
 versions.ktor_version = "1.2.2"
 versions.logback_version="1.2.1"
 versions.exposed= "0.16.1"
+versions.hickariCp= "2.7.8"
+versions.h2="1.4.196"
 
 
 
@@ -94,6 +96,8 @@ ktorDeps.gson =  "io.ktor:ktor-gson:$versions.ktor_version"
 ktorDeps.serverTest=  "io.ktor:ktor-server-tests:$versions.ktor_version"
 ktorDeps.koin= "org.koin:koin-ktor:$versions.koin"
 ktorDeps.exposed = "org.jetbrains.exposed:exposed:$versions.exposed"
+ktorDeps.hickariCp= "com.zaxxer:HikariCP:$versions.hickariCp"
+ktorDeps.h2 = "com.h2database:h2:$versions.h2"
 deps.ktorDeps = ktorDeps
 
 
