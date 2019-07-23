@@ -4,6 +4,6 @@ import org.koin.dsl.module
 
 val authModule = module {
        single {
-           AuthController(get(), get())
+           AuthController(get(), get() , get())
        }
 }

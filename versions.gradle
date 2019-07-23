@@ -14,6 +14,7 @@ versions.koin = "2.0.1"
     // Ktor versions
 versions.ktor_version = "1.2.2"
 versions.logback_version="1.2.1"
+versions.exposed= "0.16.1"
 
 
 
@@ -92,6 +93,7 @@ ktorDeps.auth_jwt =  "io.ktor:ktor-auth-jwt:$versions.ktor_version"
 ktorDeps.gson =  "io.ktor:ktor-gson:$versions.ktor_version"
 ktorDeps.serverTest=  "io.ktor:ktor-server-tests:$versions.ktor_version"
 ktorDeps.koin= "org.koin:koin-ktor:$versions.koin"
+ktorDeps.exposed = "org.jetbrains.exposed:exposed:$versions.exposed"
 deps.ktorDeps = ktorDeps
 
 

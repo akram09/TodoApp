@@ -26,6 +26,7 @@ dependencies {
     implementation deps.koin.core
     implementation deps.koin.ext
     implementation deps.ktorDeps.koin
+    implementation deps.ktorDeps.exposed
 //    implementation deps.arrow.core
     implementation deps.ktorDeps.nettyServer
     implementation deps.ktorDeps.logback
