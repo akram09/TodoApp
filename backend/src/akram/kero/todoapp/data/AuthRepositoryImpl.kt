@@ -39,11 +39,18 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
     override fun configureJwtAuth(): Pair<Verifier, Validator> {
         val validator:suspend (String)->Boolean= {
            coroutineScope {
-               delay(2000L)
-               true
+               !getUseByUUid(UUID.fromString(it)).isEmpty()
            }
         }
         return Pair(Verifier("ktor.io_issuer" , "Authentification" , "todo_app") ,validator)
+    }
+    private suspend  fun getUseByUUid(uuid: UUID) :List<User> = suspendCoroutine{
+       val user = transaction {
+           UserTable.select{
+               UserTable.uuid eq uuid
+           }.toList()
+       }
+        it.resume(user.mapToUserList())
     }
 
 
@@ -107,8 +114,10 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
                 UserTable.email eq email
             }.toList()
         }
-        it.resume(list.map { User(it[UserTable.id] , it[UserTable.email] , it[UserTable.password]) })
+        it.resume(list.mapToUserList())
     }
+    private fun List<ResultRow>.mapToUserList()
+       = map { User(it[UserTable.id] , it[UserTable.email] , it[UserTable.password]) }
 
 
 
