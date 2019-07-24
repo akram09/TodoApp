@@ -1,3 +1,3 @@
 package akram.kero.todoapp.domain.models
 
-data class User(val email:String , val password:String)
+data class User( val id:Int , val email:String , val password:String)

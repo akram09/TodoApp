@@ -4,7 +4,7 @@ import org.jetbrains.exposed.sql.Table
 
 object  UserTable :Table(){
     val id  = integer("UserId").primaryKey().autoIncrement()
-    val uuid = uuid("Id").nullable()
+    var uuid = uuid("Id").nullable()
     val email = varchar("mail", 254)
     val password = text("password")
 }
