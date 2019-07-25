@@ -76,7 +76,8 @@ fun Application.module(){
 
         authenticate("Basic-Auth") {
             get("/auth/login") {
-                log.debug("entered login with ${call.receiveText()}")
+                val user = call.receive(SignUpParam::class)
+                controller.loginUser(user)
             }
             post("/auth/signUp"){
                 val user = call.receive(SignUpParam::class)

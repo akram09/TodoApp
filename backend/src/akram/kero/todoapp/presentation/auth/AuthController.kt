@@ -13,7 +13,10 @@ import io.ktor.auth.jwt.JWTCredential
 import io.ktor.auth.jwt.JWTPrincipal
 import kotlinx.coroutines.coroutineScope
 
-class AuthController(private val basicAuthUseCase: ConfigureBasicAuth,private  val signUpUseCase: SignUpUser ,private val jwtAuth: ConfigureJwtAuth ) {
+class AuthController(private val basicAuthUseCase: ConfigureBasicAuth
+                     ,private  val signUpUseCase: SignUpUser
+                     ,private val jwtAuth: ConfigureJwtAuth
+                      , private val logUserIn: LogUserIn  ) {
 
     suspend fun signUpUser(signUpParam: SignUpParam):Either<ErrorReporting  , Token>{
         val either =  launchInteractor(signUpUseCase , signUpParam)
@@ -37,6 +40,13 @@ class AuthController(private val basicAuthUseCase: ConfigureBasicAuth,private  v
             }
         }
         return Pair(jwtVerifier , function)
+    }
+
+    suspend fun loginUser(signUpParam: SignUpParam):Either<ErrorReporting , Token>{
+        val either = launchInteractor(logUserIn , signUpParam)
+        return either.mapLeft {
+            ErrorReporting(arrayOf())
+        }
     }
 
     suspend fun handleBasicAuth(userPasswordCredential: UserPasswordCredential) : UserIdPrincipal? {

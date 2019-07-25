@@ -33,6 +33,19 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
         return user.userName=="Hello World" && user.password=="Juju"
     }
 
+    override suspend fun loginUser(loginParam: SignUpParam): Either<Failure.LoginFailure, Token>
+       = if( isUserInDatabase(loginParam.email)){
+             val user = getUsersByEmail(loginParam.email)[0]
+             if(user.password ==loginParam.password){
+                 val uuid= UUID.randomUUID()
+                    updateUUID(user.id , uuid)
+                 Either.Right(Token(JwtConfig.makeToken(uuid.toString())))
+             }else{
+                 Either.Left(Failure.LoginFailure.PasswordIncorrect)
+             }
+        }else{
+            Either.Left(Failure.LoginFailure.UserNotFound)
+        }
 
 
 
@@ -44,6 +57,11 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
         }
         return Pair(Verifier("ktor.io_issuer" , "Authentification" , "todo_app") ,validator)
     }
+
+
+
+
+
     private suspend  fun getUseByUUid(uuid: UUID) :List<User> = suspendCoroutine{
        val user = transaction {
            UserTable.select{
@@ -84,6 +102,8 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
         updateUUID(id , uuid)
         return uuid
     }
+
+
     private suspend fun insertUser(email:String , password: String)= suspendCoroutine<Unit>{
          transaction {
              UserTable.insert {
@@ -93,10 +113,22 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
          }
         it.resume(Unit)
     }
+
+
+    /**
+     * get UserId with email
+     *
+     */
     private suspend fun getUserId(email: String) :Int= coroutineScope {
          val users = getUsersByEmail(email)
          users[0].id
     }
+
+    /**
+     * update the uuid of the user who has the id given in param
+     * @param id the id of the user we want to change his uuid
+     * @param uuid  the new uuid we want to affect to user
+     */
     private suspend fun updateUUID(id:Int , uuid: UUID) = suspendCoroutine<Unit> {
         transaction {
             UserTable.update({
@@ -108,6 +140,10 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
         }
     }
 
+    /**
+     * get List of user with email
+     * @param email the email we query with
+     */
     private suspend fun getUsersByEmail(email: String):List<User> = suspendCoroutine {
         val list  =transaction {
             UserTable.select {
@@ -116,10 +152,13 @@ class AuthRepositoryImpl(hikariDataSource: HikariDataSource): AuthRepository {
         }
         it.resume(list.mapToUserList())
     }
+
+
+    /**
+     * map the list got from the database to userList
+     */
     private fun List<ResultRow>.mapToUserList()
        = map { User(it[UserTable.id] , it[UserTable.email] , it[UserTable.password]) }
-
-
 
 
 

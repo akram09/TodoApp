@@ -7,5 +7,6 @@ import akram.kero.todoapp.utils.Either
 interface AuthRepository {
     suspend fun validateUserBasicAuth(user: UserPassword):Boolean
     suspend fun signUpUser(user: SignUpParam):Either<Failure.SignUpFailure , Token>
+    suspend fun loginUser(loginParam: SignUpParam):Either<Failure.LoginFailure, Token>
     fun configureJwtAuth():Pair<Verifier , Validator>
 }
