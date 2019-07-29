@@ -2,6 +2,7 @@ package akram.kero.todoapp.domain
 
 import akram.kero.todoapp.domain.interactors.ConfigureBasicAuth
 import akram.kero.todoapp.domain.interactors.ConfigureJwtAuth
+import akram.kero.todoapp.domain.interactors.LogUserIn
 import akram.kero.todoapp.domain.interactors.SignUpUser
 import akram.kero.todoapp.utils.CouroutineDispatchers
 import org.koin.dsl.bind
@@ -19,5 +20,8 @@ val domainModule= module {
     }
     single{
         ConfigureJwtAuth(get())
+    }
+    single{
+        LogUserIn(get(), get())
     }
 }

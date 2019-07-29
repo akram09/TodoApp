@@ -20,6 +20,7 @@ import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.gson.gson
+import io.ktor.http.HttpStatusCode
 import io.ktor.request.*
 import io.ktor.response.respond
 import io.ktor.routing.get
@@ -87,7 +88,7 @@ fun Application.module(){
         authenticate("Jwt-Auth") {
             get("/api/hello"){
                 log.debug(call.receiveText())
-                call.respond("hello world")
+                call.respond(HttpStatusCode.OK , "hello world")
             }
         }
 
