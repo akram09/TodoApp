@@ -30,6 +30,10 @@ kotlin {
        val commonMain  by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                implementation(Dependencies.Coroutines.core)
+                implementation(Dependencies.Serialization.Common)
+                implementation(Dependencies.KtorClient.commenJson)
+                implementation(Dependencies.KtorClient.commonCore)
 
             }
         }
@@ -42,6 +46,10 @@ kotlin {
         val jvmMain  by getting{
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation(Dependencies.Coroutines.Android)
+                implementation(Dependencies.Serialization.Jvm)
+                implementation(Dependencies.KtorClient.jvmCore)
+                implementation(Dependencies.KtorClient.jvmJso)
             }
         }
         val jvmTest  by getting{
@@ -52,7 +60,11 @@ kotlin {
         }
         val iosMain by getting{
             dependencies{
-
+                implementation(Dependencies.Coroutines.Native)
+                implementation(Dependencies.Serialization.Native)
+                implementation(Dependencies.KtorClient.iosCore)
+                implementation(Dependencies.KtorClient.iosJson)
+                implementation(Dependencies.KtorClient.iosNative)
             }
         }
 

@@ -1,4 +1,4 @@
-object Versions{
+object Versions {
     object Kotlin {
         const val kotlinVersion = "1.3.41"
         const val SerializationVersion = "0.11.1"
@@ -33,8 +33,4 @@ object Versions{
         const val android_gradle_plugin = "3.2.1"
         const val rxAndroid="2.1.0"
     }
-
-
-
-
 }

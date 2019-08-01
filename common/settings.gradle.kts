@@ -7,5 +7,5 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'common'
+rootProject.name = "common"
 
