@@ -5,5 +5,5 @@ actual class Sample {
 }
 
 actual object Platform {
-    actual fun name(): String = "JVM"
+    actual val name: String = "JVM"
 }

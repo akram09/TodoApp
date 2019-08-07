@@ -13,18 +13,13 @@ kotlin {
 
     targets{
         android()
+        js()
         val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")
         if(onPhone!!){
             iosArm64("ios")
         }else{
             iosX64("ios")
         }
-//        fromPreset(presets.jvm, 'jvm')
-//
-//        // Change to `presets.iosArm64` to deploy the app to iPhone
-//        fromPreset(presets.iosX64, 'ios') {
-//            compilations.main.outputKinds('FRAMEWORK')
-//        }
     }
     sourceSets {
        val commonMain  by getting {
@@ -56,6 +51,16 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
+            }
+        }
+        val jsMain by getting{
+            dependencies{
+                
+            }
+        }
+        val jsTest by getting {
+            dependencies{
+                
             }
         }
         val iosMain by getting{

@@ -1,9 +1,9 @@
 package sample
 
 actual class Sample {
-    actual fun checkMe() = 7
+    actual fun checkMe() = 12
 }
 
 actual object Platform {
-    actual fun name(): String = "iOS"
+    actual val name: String = "JS"
 }

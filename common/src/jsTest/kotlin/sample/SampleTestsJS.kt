@@ -3,9 +3,9 @@ package sample
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class SampleTestsNative {
+class SampleTestsJS {
     @Test
     fun testHello() {
-        assertTrue("iOS" in hello())
+        assertTrue("JS" in hello())
     }
 }

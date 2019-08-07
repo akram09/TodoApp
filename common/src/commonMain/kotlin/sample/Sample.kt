@@ -5,7 +5,7 @@ expect class Sample() {
 }
 
 expect object Platform {
-    fun name(): String
+    val name: String
 }
 
-fun hello(): String = "Hello from ${Platform.name()}"
+fun hello(): String = "Hello from ${Platform.name}"

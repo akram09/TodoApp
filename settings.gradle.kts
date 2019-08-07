@@ -1,3 +1,3 @@
 rootProject.name = "todo"
-include ("backend", "android" ,"common")
+include ("backend", "android" )
 enableFeaturePreview("GRADLE_METADATA")
