@@ -1,4 +1,5 @@
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.kotlin.dsl.maven
 
 object Configs {
     object BuildVersion {
@@ -11,12 +12,12 @@ fun RepositoryHandler.addRepos() {
     jcenter()
     mavenLocal()
     mavenCentral()
-    maven { "https://jitpack.io" }
-    maven { "https://kotlin.bintray.com/ktor" }
-    maven { "https://dl.bintray.com/netguru/maven/" }
-    maven { "https://dl.bintray.com/kotlin/kotlinx" }
-    maven { "https://dl.bintray.com/arrow-kt/arrow-kt/" }
-    maven { "https://kotlin.bintray.com/kotlin-js-wrappers" }
-    maven { "https://oss.sonatype.org/content/repositories/snapshots" }
-    maven { "https://dl.bintray.com/kotlin/kotlin-eap" }
+    maven(url = "https://jitpack.io" )
+    maven(url = "https://kotlin.bintray.com/ktor" )
+    maven(url ="https://dl.bintray.com/netguru/maven/" )
+    maven( url ="https://dl.bintray.com/kotlin/kotlinx" )
+    maven(url = "https://dl.bintray.com/arrow-kt/arrow-kt/" )
+    maven(url = "https://kotlin.bintray.com/kotlin-js-wrappers")
+    maven(url = "https://oss.sonatype.org/content/repositories/snapshots" )
+    maven (url = "https://dl.bintray.com/kotlin/kotlin-eap" )
 }
