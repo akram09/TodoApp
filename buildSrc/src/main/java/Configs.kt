@@ -3,8 +3,8 @@ import org.gradle.kotlin.dsl.maven
 
 object Configs {
     object BuildVersion {
-        const val min_sdk = 21
-        const val target_sdk = 28
+        val min_sdk = 21
+        val target_sdk = 28
     }
 }
 fun RepositoryHandler.addRepos() {
@@ -12,6 +12,7 @@ fun RepositoryHandler.addRepos() {
     jcenter()
     mavenLocal()
     mavenCentral()
+    maven (url= "https://plugins.gradle.org/m2/" )
     maven(url = "https://jitpack.io" )
     maven(url = "https://kotlin.bintray.com/ktor" )
     maven(url ="https://dl.bintray.com/netguru/maven/" )

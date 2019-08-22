@@ -1,26 +1,24 @@
+
 plugins {
-    kotlin("multiplatform") version "1.3.41"
-    id("kotlinx-serialization") version "1.3.41"
-    id("maven-publish")
+    kotlin("multiplatform")
+    id("kotlinx-serialization")
+    id("org.jetbrains.kotlin.native.cocoapods")
+    id("co.touchlab.kotlinxcodesync")
 }
-
-group =  "com.example"
-version ="0.0.1"
-
-
-
 kotlin {
 
-    targets{
-        android()
-        js()
-        val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")
-        if(onPhone!!){
-            iosArm64("ios")
-        }else{
-            iosX64("ios")
+    jvm()
+    js()
+    targets {
+        val  buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
+        if (buildForDevice) {
+            iosArm64("iOS64")
+            iosArm32("iOS32")
+        } else {
+            iosX64("iOS")
         }
     }
+
     sourceSets {
        val commonMain  by getting {
             dependencies {
@@ -38,6 +36,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
+
         val jvmMain  by getting{
             dependencies {
                 implementation(kotlin("stdlib"))
@@ -63,7 +62,7 @@ kotlin {
                 
             }
         }
-        val iosMain by getting{
+        val iOSMain by getting{
             dependencies{
                 implementation(Dependencies.Coroutines.Native)
                 implementation(Dependencies.Serialization.Native)
@@ -74,5 +73,18 @@ kotlin {
         }
 
     }
+
+    cocoapods {
+        summary = "Kotlin TodoList App common module"
+        homepage = "https://github.com/akram09/TodoApp"
+    }
+
 }
+
+
+xcode {
+    projectPath = "../ios/TodoApp.xcodeproj"
+    target = "TodoApp"
+}
+
 
