@@ -3,7 +3,6 @@ object Versions {
         const val kotlinVersion = "1.3.41"
         const val SerializationVersion = "0.11.1"
         const val KoinVersion = "2.0.1"
-        const val arrowVersion = "0.9.0"
         const val coroutine_version = "1.3.0-RC"
         const val rxJava="2.2.4"
         const val rxKotlin = "2.3.0"

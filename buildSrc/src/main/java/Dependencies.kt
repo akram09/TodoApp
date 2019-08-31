@@ -22,9 +22,6 @@ object Dependencies {
          val Jvm = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.Kotlin.SerializationVersion}"
          val Native = "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${Versions.Kotlin.SerializationVersion}"
     }
-    object Arrow {
-         val Core = "io.arrow-kt:arrow-core:${Versions.Kotlin.arrowVersion}"
-    }
     object Koin {
          val Core = "org.koin:koin-core:${Versions.Kotlin.KoinVersion}"
          val Extensions= "org.koin:koin-core-ext:${Versions.Kotlin.KoinVersion}"

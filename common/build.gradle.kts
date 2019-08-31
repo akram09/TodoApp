@@ -1,14 +1,10 @@
 
 plugins {
     kotlin("multiplatform")
-    id("kotlinx-serialization")
-    id("org.jetbrains.kotlin.native.cocoapods")
-    id("co.touchlab.kotlinxcodesync")
 }
 kotlin {
 
     jvm()
-    js()
     targets {
         val  buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
         if (buildForDevice) {
@@ -20,14 +16,10 @@ kotlin {
     }
 
     sourceSets {
-       val commonMain  by getting {
+        val commonMain  by getting {
             dependencies {
-                implementation(kotlin("stdlib-common"))
                 implementation(Dependencies.Coroutines.core)
-                implementation(Dependencies.Serialization.Common)
-                implementation(Dependencies.KtorClient.commenJson)
-                implementation(Dependencies.KtorClient.commonCore)
-
+                implementation(kotlin("stdlib-common"))
             }
         }
         val commonTest by getting {
@@ -40,10 +32,6 @@ kotlin {
         val jvmMain  by getting{
             dependencies {
                 implementation(kotlin("stdlib"))
-                implementation(Dependencies.Coroutines.Android)
-                implementation(Dependencies.Serialization.Jvm)
-                implementation(Dependencies.KtorClient.jvmCore)
-                implementation(Dependencies.KtorClient.jvmJso)
             }
         }
         val jvmTest  by getting{
@@ -52,39 +40,15 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
-        val jsMain by getting{
-            dependencies{
-                
-            }
-        }
-        val jsTest by getting {
-            dependencies{
-                
-            }
-        }
         val iOSMain by getting{
             dependencies{
-                implementation(Dependencies.Coroutines.Native)
-                implementation(Dependencies.Serialization.Native)
-                implementation(Dependencies.KtorClient.iosCore)
-                implementation(Dependencies.KtorClient.iosJson)
-                implementation(Dependencies.KtorClient.iosNative)
+
             }
         }
 
     }
 
-    cocoapods {
-        summary = "Kotlin TodoList App common module"
-        homepage = "https://github.com/akram09/TodoApp"
-    }
-
 }
 
-
-xcode {
-    projectPath = "../ios/TodoApp.xcodeproj"
-    target = "TodoApp"
-}
 
 
