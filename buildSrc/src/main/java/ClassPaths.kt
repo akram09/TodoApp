@@ -4,5 +4,6 @@ object  ClassPaths{
     val AndroidGradlePlugin = "com.android.tools.build:gradle:${Versions.Android.android_gradle_plugin}"
     val xcodePlugin =  "co.touchlab:kotlinxcodesync:${Versions.Plugins.xcodeSyncVersion}"
     val shadowPlugin =  "com.github.jengelman.gradle.plugins:shadow:${Versions.Plugins.Shadow}"
+    val sqldelightPLugin = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
 
 }

@@ -22,8 +22,6 @@ repositories{
 }
 dependencies {
     implementation(Dependencies.Kotlin.Jre)
-    implementation(Dependencies.Rxjava.core)
-    implementation(Dependencies.Rxjava.rxKotlin)
     implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Koin.Core)
     implementation(Dependencies.Koin.Extensions)

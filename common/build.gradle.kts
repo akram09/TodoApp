@@ -18,26 +18,38 @@ kotlin {
     sourceSets {
         val commonMain  by getting {
             dependencies {
+                implementation(Dependencies.Stately.mpp)
+                implementation(Dependencies.Stately.collection)
+                implementation(Dependencies.Kotlin.StdLib)
+                implementation(Dependencies.Kotlin.Jre)
                 implementation(Dependencies.Coroutines.core)
-                implementation(kotlin("stdlib-common"))
+                implementation(Dependencies.SqlDelight.runtime)
+                implementation(Dependencies.multiplatformSettings)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-commone"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(Dependencies.Test.mockk)
+                implementation(Dependencies.Test.Kotlin.common)
+                implementation(Dependencies.Test.Kotlin.annotation)
+                implementation(Dependencies.Stately.mpp)
+                implementation(Dependencies.Stately.collection)
+                implementation(Dependencies.Coroutines.core)
+                implementation(Dependencies.Coroutines.JDK)
+                implementation(Dependencies.multiplatformSettings)
             }
         }
 
         val jvmMain  by getting{
             dependencies {
-                implementation(kotlin("stdlib"))
+                implementation(Dependencies.Kotlin.StdLib)
+                implementation(Dependencies.Kotlin.Jre)
             }
         }
         val jvmTest  by getting{
             dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
+                implementation(Dependencies.Test.Junit.KotlinJunit)
+                implementation(Dependencies.Test.Kotlin.jvm)
             }
         }
         val iOSMain by getting{

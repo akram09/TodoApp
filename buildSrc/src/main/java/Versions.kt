@@ -1,16 +1,19 @@
 object Versions {
     object Kotlin {
-        const val kotlinVersion = "1.3.60"
-        const val SerializationVersion = "0.14"
+        const val kotlinVersion = "1.3.41"
+        const val SerializationVersion = "0.11.1"
         const val KoinVersion = "2.0.1"
         const val coroutine_version = "1.3.3"
-        const val rxJava="2.2.4"
-        const val rxKotlin = "2.3.0"
         const val junit = "5.5.1"
         const val mockito = "2.13.0"
     }
+    const val multiplatformSettings = "0.3.2"
+
+    const val sqlDelight = "1.1.4"
+    const val stately = "0.9.2"
+    const val sqliter = "0.6.3"
     object Ktor {
-        const val ktor_version = "1.3.0-rc2"
+        const val ktor_version = "1.2.3"
         const val logback_version = "1.2.1"
         const val exposed = "0.16.1"
         const val hickariCp = "2.7.8"
@@ -33,7 +36,7 @@ object Versions {
         const val rxAndroid="2.1.0"
     }
     object Plugins {
-        const val xcodeSyncVersion = "0.1.2"
+        const val xcodeSyncVersion = "0.1.5"
         const val Shadow ="5.0.0"
     }
 }

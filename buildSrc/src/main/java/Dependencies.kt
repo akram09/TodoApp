@@ -2,16 +2,27 @@
 object Dependencies {
 
 
-    object Coroutines {
-         val core ="org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutine_version}"
-         val Android ="org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutine_version}"
-         val Native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.Kotlin.coroutine_version}"
-         val rxJava = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${Versions.Kotlin.coroutine_version}"
+
+    const val multiplatformSettings = "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
+    object  SqlDelight{
+        const val runtime = "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
+        const val runtimeJdk  = "com.squareup.sqldelight:runtime-jvm:${Versions.sqlDelight}"
+        const val driverIos = "com.squareup.sqldelight:ios-driver:${Versions.sqlDelight}"
+        const val driverAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
+        const val driverSqlite = "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelight}"
+
+    }
+    object Stately {
+        const val mpp = "co.touchlab:stately:${Versions.stately}"
+        const val collection = "co.touchlab:stately-collections:${Versions.stately}"
     }
 
-    object Rxjava {
-         val core = "io.reactivex.rxjava2:rxjava:${Versions.Kotlin.rxJava}"
-         val rxKotlin= "io.reactivex.rxjava2:rxkotlin:${Versions.Kotlin.rxKotlin}"
+    const val sqliter = "co.touchlab:sqliter:${Versions.sqliter}"
+    object Coroutines {
+        val core ="org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutine_version}"
+        val Android ="org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutine_version}"
+        val JDK = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutine_version}"
+        val Native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.Kotlin.coroutine_version}"
     }
     object Kotlin{
          val Jre = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.Kotlin.kotlinVersion}"
@@ -33,6 +44,12 @@ object Dependencies {
              val Jupiter = "org.junit.jupiter:junit-jupiter-api:${Versions.Kotlin.junit}"
              val KotlinJunit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.Kotlin.kotlinVersion}"
         }
+        object Kotlin{
+            val common  = "org.jetbrains.kotlin:kotlin-test-common:${Versions.Kotlin.kotlinVersion}"
+            val annotation = "org.jetbrains.kotlin:kotlin-test-annotations-common:${Versions.Kotlin.kotlinVersion}"
+            val jvm        = "org.jetbrains.kotlin:kotlin-test:${Versions.Kotlin.kotlinVersion}"
+            val reflect    = "org.jetbrains.kotlin:kotlin-reflect:${Versions.Kotlin.kotlinVersion}"
+        }
         const val mockk = "io.mockk:mockk:1.8.9.kotlin13"
     }
     object Ktor {
@@ -47,9 +64,9 @@ object Dependencies {
          val Gson =  "io.ktor:ktor-gson:${Versions.Ktor.ktor_version}"
          val serverTest=  "io.ktor:ktor-server-tests:${Versions.Ktor.ktor_version}"
     }
-     val Exposed = "org.jetbrains.exposed:exposed:${Versions.Ktor.exposed}"
-     val HickariCp = "com.zaxxer:HikariCP:${Versions.Ktor.hickariCp}"
-     val H2Db = "com.h2database:h2:${Versions.Ktor.h2}"
+    val Exposed = "org.jetbrains.exposed:exposed:${Versions.Ktor.exposed}"
+    val HickariCp = "com.zaxxer:HikariCP:${Versions.Ktor.hickariCp}"
+    val H2Db = "com.h2database:h2:${Versions.Ktor.h2}"
 
     object KtorClient{
          val commonCore = "io.ktor:ktor-client-core:${Versions.Ktor.ktor_version}"
