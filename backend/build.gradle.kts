@@ -38,6 +38,5 @@ dependencies {
     implementation(Dependencies.Ktor.Auth)
     implementation(Dependencies.Ktor.AuthJwt)
     implementation (Dependencies.Ktor.Gson)
-    testImplementation(Dependencies.Ktor.serverTest)
 
 }

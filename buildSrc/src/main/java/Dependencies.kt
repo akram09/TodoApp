@@ -62,7 +62,6 @@ object Dependencies {
          val Auth =  "io.ktor:ktor-auth:${Versions.Ktor.ktor_version}"
          val AuthJwt =  "io.ktor:ktor-auth-jwt:${Versions.Ktor.ktor_version}"
          val Gson =  "io.ktor:ktor-gson:${Versions.Ktor.ktor_version}"
-         val serverTest=  "io.ktor:ktor-server-tests:${Versions.Ktor.ktor_version}"
     }
     val Exposed = "org.jetbrains.exposed:exposed:${Versions.Ktor.exposed}"
     val HickariCp = "com.zaxxer:HikariCP:${Versions.Ktor.hickariCp}"
